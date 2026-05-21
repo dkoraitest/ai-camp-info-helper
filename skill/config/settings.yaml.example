@@ -1,0 +1,70 @@
+# settings.yaml — глобальные настройки info-helper
+# Скопируй в settings.yaml и под себя адаптируй.
+
+# Фильтр свежести событий
+freshness_days: 7        # события старше — drop
+show_context: true       # показывать ли отдельную секцию «8-30 дней» в отчёте
+max_events_per_company: 5
+min_events_per_company: 0  # 0 — выводить, даже если нет ни одного (со строкой «нет поводов»)
+
+# Язык вывода
+language: ru  # ru | en | kz
+
+# Тон opening_line
+tone:
+  formality: business_formal  # casual | business_friendly | business_formal
+  kz_etiquette: true  # «вы», по имени-отчеству где уместно
+  max_words_in_opening: 20
+
+# Источники, которые скилл будет использовать
+sources:
+  web_search: true              # обязательно
+  web_fetch: true               # обязательно
+  hh_kz: true                   # для KZ-клиентов — анализ вакансий
+  adata_kz: false               # включай при наличии KZ-юрлиц с БИН
+  linkedin: false               # требует APIFY_API_KEY в env
+  twitter: false                # требует XAI_API_KEY в env
+
+# Дедупликация
+dedup:
+  cache_path: cache/sent-events.json
+  ttl_days: 14  # дольше этого записи в кэше удаляются
+
+# Доставка отчёта
+delivery:
+  # Куда сохранять Markdown-отчёт (path относительно info-helper/skill/)
+  report_dir: reports
+  report_filename_pattern: "info-helper-{YYYY-MM-DD}.md"
+
+  # Telegram (опционально)
+  telegram:
+    enabled: false
+    bot_token: ${TELEGRAM_BOT_TOKEN}  # см. delivery/README.md как получить
+    chat_id: ${TELEGRAM_CHAT_ID}
+    chunk_size_chars: 3800  # Telegram-лимит 4096
+
+  # Slack (опционально)
+  slack:
+    enabled: false
+    webhook_url: ${SLACK_WEBHOOK_URL}
+
+  # Email (опционально)
+  email:
+    enabled: false
+    to: manager@company.kz
+    smtp_host: smtp.gmail.com
+    smtp_port: 587
+    smtp_user: ${SMTP_USER}
+    smtp_pass: ${SMTP_PASS}
+
+# Лимиты и rate-limit
+limits:
+  max_companies_per_run: 50
+  per_company_timeout_seconds: 90
+  global_timeout_seconds: 1800  # 30 минут общий потолок на прогон
+
+# Логирование
+logging:
+  level: info  # debug | info | warn | error
+  log_dir: logs
+  log_filename_pattern: "run-{YYYY-MM-DD-HHmm}.log"

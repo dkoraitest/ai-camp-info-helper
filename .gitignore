@@ -1,0 +1,43 @@
+# Environment variables and secrets
+.env
+.env.local
+.env.*.local
+*.token
+secrets/
+
+# Local config (user's real client list)
+skill/config/clients.yaml
+skill/config/settings.yaml
+
+# Runtime state
+skill/cache/
+skill/logs/
+skill/reports/
+
+# Telegram sessionные файлы
+/tmp/tg-resp.json
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
+
+# Cache
+.cache/
+__pycache__/
+*.pyc
+
+# Local Claude Code working state
+.claude/local/
+.claude/cache/

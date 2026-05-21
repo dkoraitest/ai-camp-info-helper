@@ -1,0 +1,103 @@
+{
+  "name": "AI Camp · Info-Helper · Daily Touch Reasons (demo)",
+  "flow": [
+    {
+      "id": 1,
+      "module": "builtin:BasicTrigger",
+      "version": 1,
+      "metadata": {
+        "designer": { "x": 0, "y": 0, "name": "Manual Trigger (replace with Cron 09:00)" }
+      },
+      "parameters": {},
+      "mapper": {}
+    },
+    {
+      "id": 2,
+      "module": "builtin:BasicRouter",
+      "version": 1,
+      "metadata": {
+        "designer": { "x": 300, "y": 0, "name": "Iterator: companies" }
+      },
+      "parameters": {},
+      "mapper": {
+        "array": [
+          { "name": "АкмеЛогистикс", "website": "akme-logistics.kz" }
+        ]
+      }
+    },
+    {
+      "id": 3,
+      "module": "http:ActionSendData",
+      "version": 3,
+      "metadata": {
+        "designer": { "x": 600, "y": 0, "name": "Perplexity: get fresh news" }
+      },
+      "parameters": { "handleErrors": true },
+      "mapper": {
+        "url": "https://api.perplexity.ai/chat/completions",
+        "method": "POST",
+        "headers": [
+          { "name": "Authorization", "value": "Bearer YOUR_PERPLEXITY_KEY" },
+          { "name": "Content-Type", "value": "application/json" }
+        ],
+        "bodyType": "raw",
+        "contentType": "application/json",
+        "data": "{\n  \"model\": \"sonar-pro\",\n  \"messages\": [\n    {\"role\": \"system\", \"content\": \"You are a B2B sales research assistant. Find the most important news, hiring moves, leadership changes, product launches, partnerships, and strategic announcements for the given company in the past 30 days. Return 5-8 facts, each with source URL and date. Skip generic facts.\"},\n    {\"role\": \"user\", \"content\": \"Company: {{2.name}} (website: {{2.website}}). Find recent news in past 30 days. Return as JSON array: title, date, url, summary (1-2 sentences in Russian).\"}\n  ],\n  \"max_tokens\": 1500\n}",
+        "parseResponse": true,
+        "timeout": "60"
+      }
+    },
+    {
+      "id": 4,
+      "module": "openai-gpt-3:CreateCompletion",
+      "version": 1,
+      "metadata": {
+        "designer": { "x": 900, "y": 0, "name": "OpenAI: summarize to 3-5 touch reasons" }
+      },
+      "parameters": { "__IMTCONN__": "YOUR_OPENAI_CONNECTION" },
+      "mapper": {
+        "select": "chat",
+        "model": "gpt-4o-mini",
+        "messages": [
+          {
+            "role": "system",
+            "content": "You are an SDR's assistant for a B2B sales team in Kazakhstan. From the news facts provided, extract 3-5 concrete touch reasons fresh enough (≤7 days). Drop generic facts and older events. For each kept reason produce: 1-line hook (Russian, concrete), event date in Russian, source URL, and a Russian opening line (max 20 words, business-formal, on «вы»). Return Markdown for Telegram, NOT JSON."
+          },
+          {
+            "role": "user",
+            "content": "Company: {{2.name}}\nToday: {{formatDate(now; \"D MMMM YYYY\"; \"ru\")}}\n\nNews:\n{{3.data.choices[].message.content}}\n\nFormat:\n\n☕ Поводы на {{formatDate(now; \"D MMMM\"; \"ru\")}} · {{2.name}}\n\n🎯 [hook]\n📅 [date]\n🔗 [url]\n💬 «[opening line]»\n\n(3-5 раз)\n\nЕсли нет свежих — «☕ Сегодня свежих поводов нет — попробуй завтра.»"
+          }
+        ],
+        "max_tokens": 1500,
+        "temperature": "0.4"
+      }
+    },
+    {
+      "id": 5,
+      "module": "telegram-bot:SendMessage",
+      "version": 1,
+      "metadata": {
+        "designer": { "x": 1200, "y": 0, "name": "Telegram: send to manager" }
+      },
+      "parameters": { "__IMTCONN__": "YOUR_TELEGRAM_BOT_CONNECTION" },
+      "mapper": {
+        "chat_id": "YOUR_CHAT_ID",
+        "text": "{{4.choices[].message.content}}",
+        "parse_mode": "Markdown",
+        "disable_notification": false
+      }
+    }
+  ],
+  "metadata": {
+    "instant": false,
+    "version": 1,
+    "scenario": {
+      "roundtrips": 1,
+      "maxErrors": 3,
+      "autoCommit": true,
+      "sequential": false,
+      "dlq": false
+    },
+    "zone": "us1.make.com"
+  }
+}

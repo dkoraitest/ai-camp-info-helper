@@ -1,0 +1,42 @@
+# clients.yaml — список клиентов для info-helper
+# Скопируй в clients.yaml и подставь свои компании.
+# clients.yaml игнорируется в git (см. .gitignore выше) — туда можно класть реальные данные.
+
+# Глобальный контекст продаж — попадает в промпт при формулировании opening_line.
+sales_context: |
+  Мы продаём AI-инструменты для отделов продаж B2B-компаний в Казахстане.
+  Главные кейсы: приоритизация лидов, скоринг входящих заявок, аналитика звонков,
+  автоматическая воронка по реактивации спящих клиентов.
+  Средний чек ~$15k/год. ICP: B2B-компании 50-500 сотрудников со sales-командой 5-30 чел.
+
+# Список компаний — простой список из имени и сайта.
+clients:
+  - name: АкмеЛогистикс
+    website: akme-logistics.kz
+    # Опционально — контекст конкретно по этому клиенту (попадает в промпт)
+    notes: |
+      Демо было 2 недели назад. Интересовались скорингом лидов.
+      ЛПР: коммерческий директор Айбек Каримов.
+
+  - name: Documentolog
+    website: documentolog.com
+    notes: SaaS ECM-провайдер, 3 KZ-юрлица — фокус на ТОО основное.
+
+  - name: Globalink Logistics
+    website: globalink-logistics.com
+    notes: Целевая компания. ЛПР: Сиддик Хан, CEO.
+
+  - name: Bayan Sulu
+    website: bayansulu.kz
+    notes: ЛПР: Радчук Андрей Сергеевич, ген. директор.
+
+# Опционально — CRM-источник вместо явного списка
+# Если задан crm.source, то clients[] игнорируется.
+crm:
+  source: null  # значения: null | hubspot | amocrm | bitrix24 | pipedrive | salesforce | google_sheet
+  filter:
+    pipeline_stage: ["Discovery", "Demo Scheduled", "Proposal Sent"]
+    last_activity_days: 60  # не старше 60 дней
+  credentials:
+    api_key: ${HUBSPOT_API_KEY}  # или AMOCRM_TOKEN, ...
+    domain: yourcompany.amocrm.ru

@@ -1,0 +1,45 @@
+# systemd.example — service + timer для Linux серверов
+#
+# Установка:
+#   1. Создай два файла ниже в /etc/systemd/system/
+#   2. sudo systemctl daemon-reload
+#   3. sudo systemctl enable --now info-helper.timer
+#   4. Проверь: sudo systemctl list-timers --all | grep info-helper
+
+# =========================================================
+# /etc/systemd/system/info-helper.service
+# =========================================================
+
+[Unit]
+Description=AI Camp · Info-Helper · Daily Touch Reasons
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=YOUR_USER
+WorkingDirectory=/home/YOUR_USER/info-helper/skill
+ExecStart=/home/YOUR_USER/info-helper/skill/runner/run.sh
+Environment=PATH=/usr/local/bin:/usr/bin:/bin
+EnvironmentFile=/home/YOUR_USER/info-helper/skill/.env
+StandardOutput=append:/home/YOUR_USER/info-helper/skill/logs/systemd.log
+StandardError=append:/home/YOUR_USER/info-helper/skill/logs/systemd.log
+TimeoutStartSec=1800
+
+# =========================================================
+# /etc/systemd/system/info-helper.timer
+# =========================================================
+
+[Unit]
+Description=Run info-helper at 9:00 weekdays (Asia/Almaty)
+Requires=info-helper.service
+
+[Timer]
+# 9:00 KZ time. На сервере в UTC — 4:00 UTC.
+# Если на сервере локально установлен Asia/Almaty timezone — оставь 09:00.
+OnCalendar=Mon..Fri *-*-* 09:00:00
+Persistent=true
+Unit=info-helper.service
+
+[Install]
+WantedBy=timers.target
