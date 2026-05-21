@@ -1,0 +1,154 @@
+# Test companies — реальные узнаваемые KZ B2B-компании
+# Используются когда у пользователя нет своего списка клиентов
+# и он хочет прогнать demo на знакомых именах.
+#
+# Каждая компания: реальное юр.лицо или бренд, активный в 2025-2026,
+# с публичной информацией в сети и достаточной активностью чтобы skill
+# мог найти 2-3 свежих повода для касания.
+#
+# Группировка по сферам, чтобы skill мог отфильтровать под контекст продажи.
+
+companies:
+  # ─────────── Логистика и транспорт ───────────
+  - name: Globalink Logistics
+    website: globalink-logistics.com
+    industry: logistics
+    notes: международная логистика KZ+CIS, CEO Сиддик Хан
+
+  - name: KTZ Express
+    website: ktze.kz
+    industry: logistics
+    notes: экспресс-доставка КТЖ, дочка нац. перевозчика
+
+  # ─────────── Ритейл / e-commerce ───────────
+  - name: Sulpak
+    website: sulpak.kz
+    industry: retail
+    notes: 200 магазинов техники, ТОО ARENA S, CEO Дмитрий Провкин
+
+  - name: Magnum Cash & Carry
+    website: magnum.kz
+    industry: retail
+    notes: крупнейшая FMCG-розница KZ
+
+  - name: Mechta
+    website: mechta.kz
+    industry: retail
+    notes: техно-ретейл, в 2024 потеряли 15% выручки
+
+  # ─────────── FMCG / производство ───────────
+  - name: Bayan Sulu
+    website: bayansulu.kz
+    industry: fmcg
+    notes: кондитерская, ген. директор Радчук Андрей Сергеевич
+
+  - name: Rakhat
+    website: rakhat.kz
+    industry: fmcg
+    notes: кондитерская, Алматы
+
+  # ─────────── Финансы / финтех ───────────
+  - name: Halyk Bank
+    website: halykbank.kz
+    industry: banking
+    notes: системный банк, крупнейший актив страны
+
+  - name: Jusan Bank
+    website: jusan.kz
+    industry: banking
+    notes: банк с фокусом на цифровизацию и MSME
+
+  - name: Kaspi.kz
+    website: kaspi.kz
+    industry: fintech
+    notes: банк + маркетплейс + платежи, листинг на NASDAQ
+
+  # ─────────── Телеком ───────────
+  - name: Beeline Kazakhstan
+    website: beeline.kz
+    industry: telecom
+    notes: дочка VEON, B2B-предложения для корпсектора
+
+  - name: Kcell
+    website: kcell.kz
+    industry: telecom
+    notes: телеком, B2B-портфель + корпоративные сервисы
+
+  # ─────────── IT / SaaS ───────────
+  - name: Documentolog
+    website: documentolog.com
+    industry: saas
+    notes: KZ ECM/EDI-провайдер, 18+ лет на рынке, CEO Аманбекова М.А.
+
+  - name: Chocofamily
+    website: chocofamily.kz
+    industry: saas
+    notes: холдинг (Chocofood, Chocotravel, Rahmet), tech-команда 200+
+
+  - name: Logycom
+    website: logycom.kz
+    industry: it
+    notes: крупнейший KZ-производитель серверов и ПК, 900K+ единиц/год
+
+  # ─────────── Строительство ───────────
+  - name: BI Group
+    website: bi.group
+    industry: construction
+    notes: крупнейший девелопер KZ, жилое + коммерческое
+
+  # ─────────── Авиация ───────────
+  - name: Air Astana
+    website: airastana.com
+    industry: aviation
+    notes: нац. авиаперевозчик, B2B-контракты
+
+  # ─────────── Энергетика / ресурсы ───────────
+  - name: KazMunaiGas
+    website: kmg.kz
+    industry: energy
+    notes: нац. нефтегазовый холдинг
+
+  - name: ERG (Eurasian Resources Group)
+    website: erg.kz
+    industry: mining
+    notes: горно-металлургический гигант
+
+# ─────────── Маппинг сфер пользователя → отрасли клиентов ───────────
+# Какие тестовые компании предлагать, в зависимости от того, что продаёт пользователь.
+# Если сфера не найдена — отдай весь список + universal микс.
+
+industry_match:
+  # Пользователь продаёт B2B SaaS / AI-инструменты для продаж
+  saas_b2b:
+    relevant: [retail, fmcg, banking, telecom, logistics, saas]
+    rationale: "У средних B2B-компаний обычно есть SDR/sales команды, в которые продаёт B2B SaaS."
+
+  # BI / аналитика / data-консалтинг
+  bi_analytics:
+    relevant: [retail, banking, fintech, telecom, logistics]
+    rationale: "BI нужен там где много операционных данных и слабая видимость воронки."
+
+  # CRM-интеграция, customer ops
+  crm:
+    relevant: [retail, fmcg, banking, telecom, saas]
+    rationale: "CRM-проекты заходят там где есть множество клиентов и менеджеров."
+
+  # Маркетинг / digital-агентство
+  marketing_agency:
+    relevant: [retail, fmcg, fintech, saas, aviation]
+    rationale: "Маркетингу нужны бренды с продуктом для конечного потребителя."
+
+  # Кибербезопасность / IT-инфраструктура
+  cybersec:
+    relevant: [banking, fintech, telecom, energy, mining, retail]
+    rationale: "Регулятор + критичность данных = высокий бюджет на cyber."
+
+  # HR-tech, e-learning, обучение для бизнеса
+  hr_tech:
+    relevant: [retail, banking, telecom, construction, mining]
+    rationale: "Большие команды (100+ людей) — primary buyer для L&D и HR-tech."
+
+  # Любая другая B2B-сфера
+  other:
+    relevant: [retail, fmcg, banking, telecom, logistics, saas, construction, aviation]
+    rationale: "Универсальный микс — узнаваемые KZ B2B-компании разных размеров."
