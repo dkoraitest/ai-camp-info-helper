@@ -32,7 +32,7 @@ dedup:
 
 # Доставка отчёта
 delivery:
-  # Куда сохранять Markdown-отчёт (path относительно info-helper/skill/)
+  # Куда сохранять Markdown-отчёт (path относительно ai-camp-info-helper/)
   report_dir: reports
   report_filename_pattern: "info-helper-{YYYY-MM-DD}.md"
 

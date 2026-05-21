@@ -18,12 +18,12 @@ Wants=network-online.target
 [Service]
 Type=oneshot
 User=YOUR_USER
-WorkingDirectory=/home/YOUR_USER/info-helper/skill
-ExecStart=/home/YOUR_USER/info-helper/skill/runner/run.sh
+WorkingDirectory=/home/YOUR_USER/ai-camp-info-helper
+ExecStart=/home/YOUR_USER/ai-camp-info-helper/runner/run.sh
 Environment=PATH=/usr/local/bin:/usr/bin:/bin
-EnvironmentFile=/home/YOUR_USER/info-helper/skill/.env
-StandardOutput=append:/home/YOUR_USER/info-helper/skill/logs/systemd.log
-StandardError=append:/home/YOUR_USER/info-helper/skill/logs/systemd.log
+EnvironmentFile=/home/YOUR_USER/ai-camp-info-helper/.env
+StandardOutput=append:/home/YOUR_USER/ai-camp-info-helper/logs/systemd.log
+StandardError=append:/home/YOUR_USER/ai-camp-info-helper/logs/systemd.log
 TimeoutStartSec=1800
 
 # =========================================================

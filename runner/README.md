@@ -38,7 +38,7 @@ cursor-agent --version
 ### 3. Положи ключи и конфиги
 
 ```bash
-cd info-helper/skill
+cd ai-camp-info-helper
 
 # Конфиги
 cp config/clients.yaml.example config/clients.yaml
@@ -67,7 +67,7 @@ chmod 600 .env
 ### 5. Тестовый прогон
 
 ```bash
-cd info-helper/skill
+cd ai-camp-info-helper
 ./runner/run.sh --dry-run --client "АкмеЛогистикс"
 ```
 
@@ -89,7 +89,7 @@ crontab -e
 Добавь строку (см. также [cron.example](cron.example)):
 
 ```
-0 9 * * 1-5 cd /full/path/to/info-helper/skill && ./runner/run.sh >> logs/cron.log 2>&1
+0 9 * * 1-5 cd /full/path/to/ai-camp-info-helper && ./runner/run.sh >> logs/cron.log 2>&1
 ```
 
 Расшифровка:
@@ -137,8 +137,8 @@ sudo systemctl list-timers --all | grep info-helper
 - Cron работает в minimal env — `PATH` может не содержать `claude`. В `cron.example` явно прописан `PATH`.
 
 ### `claude` не находит skill
-- Скилл должен лежать в `info-helper/skill/.claude/skills/info-helper/SKILL.md` относительно cwd.
-- `run.sh` делает `cd "$SKILL_DIR"` перед запуском CLI — это важно.
+- Скилл должен лежать в `.claude/skills/info-helper/SKILL.md` относительно cwd.
+- `run.sh` делает `cd "$REPO_DIR"` перед запуском CLI — это важно.
 
 ### Отчёт пришёл пустой
 - Скорее всего, кэш `cache/sent-events.json` уже содержит все события — скилл правильно дедупит.

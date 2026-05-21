@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# info-helper/skill/runner/run.sh
+# ai-camp-info-helper/runner/run.sh
 #
 # Headless-запуск скилла info-helper через Claude CLI или Cursor CLI.
 # Скрипт спроектирован для запуска по cron в 9:00 каждый день.
@@ -23,9 +23,9 @@ set -euo pipefail
 # --- Setup ---
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-SKILL_DIR="$(dirname "$SCRIPT_DIR")"
+REPO_DIR="$(dirname "$SCRIPT_DIR")"
 
-cd "$SKILL_DIR"
+cd "$REPO_DIR"
 
 # Подгружаем .env, если есть
 if [ -f .env ]; then

@@ -45,7 +45,7 @@ delivery:
 ### 4. Тест
 
 ```bash
-cd info-helper/skill
+cd ai-camp-info-helper
 echo -e "# Test\n\nЕсли видишь это в Telegram — всё работает." > /tmp/test-report.md
 ./delivery/telegram.sh /tmp/test-report.md
 ```

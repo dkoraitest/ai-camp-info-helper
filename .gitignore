@@ -41,3 +41,19 @@ __pycache__/
 # Local Claude Code working state
 .claude/local/
 .claude/cache/
+# Локальные конфиги (содержат реальные имена клиентов и ноты)
+config/clients.yaml
+config/settings.yaml
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Состояние и логи
+cache/
+logs/
+reports/
+
+# Telegram-сессионные файлы
+/tmp/tg-resp.json

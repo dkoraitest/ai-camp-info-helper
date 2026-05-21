@@ -1,20 +1,20 @@
 # cron.example — пример строки для crontab -e
 #
 # Каждый будний день в 9:00 (Astana time, если сервер в UTC+5).
-# Логи пишутся в info-helper/skill/logs/cron.log.
+# Логи пишутся в ai-camp-info-helper/logs/cron.log.
 
 # ВАЖНО: cron работает в минимальном env, нужно явно прописать PATH.
 PATH=/usr/local/bin:/usr/bin:/bin:/opt/homebrew/bin
 
 # Каждое утро 9:00, понедельник-пятница
-0 9 * * 1-5 cd /Users/YOU/path/to/info-helper/skill && ./runner/run.sh >> logs/cron.log 2>&1
+0 9 * * 1-5 cd /Users/YOU/path/to/ai-camp-info-helper && ./runner/run.sh >> logs/cron.log 2>&1
 
 # Если хочешь каждый день включая выходные — заменяй 1-5 на *
-# 0 9 * * * cd /Users/YOU/path/to/info-helper/skill && ./runner/run.sh >> logs/cron.log 2>&1
+# 0 9 * * * cd /Users/YOU/path/to/ai-camp-info-helper && ./runner/run.sh >> logs/cron.log 2>&1
 
 # Если на сервере время в UTC, а нужен Алматы (UTC+5) — сдвинь:
 # 0 4 * * 1-5 cd ...  (4:00 UTC = 9:00 KZ)
 
 # Подсказка: проверить, что cron сработал:
-#   tail -f /Users/YOU/path/to/info-helper/skill/logs/cron.log
-#   tail -f /Users/YOU/path/to/info-helper/skill/logs/run-*.log
+#   tail -f /Users/YOU/path/to/ai-camp-info-helper/logs/cron.log
+#   tail -f /Users/YOU/path/to/ai-camp-info-helper/logs/run-*.log
