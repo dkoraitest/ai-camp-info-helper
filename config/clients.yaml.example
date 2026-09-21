@@ -24,11 +24,11 @@ clients:
 
   - name: Globalink Logistics
     website: globalink-logistics.com
-    notes: Целевая компания. ЛПР: Сиддик Хан, CEO.
+    notes: "Целевая компания. ЛПР: Сиддик Хан, CEO."
 
   - name: Bayan Sulu
     website: bayansulu.kz
-    notes: ЛПР: Радчук Андрей Сергеевич, ген. директор.
+    notes: "ЛПР: Радчук Андрей Сергеевич, ген. директор."
 
 # Опционально — CRM-источник вместо явного списка
 # Если задан crm.source, то clients[] игнорируется.

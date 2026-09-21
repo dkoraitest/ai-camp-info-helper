@@ -87,6 +87,11 @@ ai-camp-info-helper/
 
 ## Другие воркшопы AI Camp Almaty 2026
 
+**Сентябрьская сессия «AI в продажах и коммуникациях» (21.09):**
+- **[ai-camp-sales-cabinet](https://github.com/dkoraitest/ai-camp-sales-cabinet)** - рабочий слой отдела продаж поверх CRM: кабинет менеджера и руководителя, аналитика звонков и переписки, тренер, следующее касание
+
+**Майская сессия:**
+
 Этот репо — 1 из 4. Остальные:
 
 - **[ai-camp-enrich-and-pitch](https://github.com/dkoraitest/ai-camp-enrich-and-pitch)** — Claude Skill: outbound-разведка B2B-клиента + готовое opening-сообщение под ЛПР
