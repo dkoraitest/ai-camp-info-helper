@@ -102,7 +102,7 @@ ai-camp-info-helper/
 
 ## Контакты
 
-Telegram: @dkorobovtsev
+Telegram: [@d_korob](https://t.me/d_korob)
 Email: dkor.aitest@gmail.com
 
 ---
